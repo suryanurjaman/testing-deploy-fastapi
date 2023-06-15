@@ -5,12 +5,11 @@ from fastapi import FastAPI, Response, UploadFile
 # initiate an app
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 # create a greeting message for an endpoint '/'
 # we use neither path nor query parameters in this endpoint
-@app.get("/upload")
-async def get_html():
-    return FileResponse("static/index.html", media_type="text/html")
+@app.get('/')
+async def greeting():
+    return 'Hello World!'
 
 
   
