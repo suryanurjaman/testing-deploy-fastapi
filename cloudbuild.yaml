@@ -15,7 +15,7 @@ steps:
     args:
       - run
       - deploy
-      - <CLOUD RUN SERVICE NAME>
+      - testing-deploy-fastapi
       - '--image'
       - 'gcr.io/$PROJECT_ID/testing-deploy-fastapi:$COMMIT_SHA'
       - '--region'
