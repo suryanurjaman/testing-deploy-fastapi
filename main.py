@@ -1,7 +1,5 @@
 import uvicorn
 from fastapi import FastAPI, Response, UploadFile
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 
 
 # initiate an app
