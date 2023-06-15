@@ -5,6 +5,7 @@ import tensorflow as tf
 from PIL import Image
 from io import BytesIO
 import numpy as np
+from enum import Enum
 
 # initiate an app
 app = FastAPI()
