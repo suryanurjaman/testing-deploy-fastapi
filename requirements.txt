@@ -8,3 +8,4 @@ tensorflow
 opencv-python
 azure-storage-blob
 google-cloud-storage
+urllib

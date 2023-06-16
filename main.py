@@ -8,21 +8,29 @@ import numpy as np
 from enum import Enum
 from google.cloud import storage
 import os
+from urllib.parse import urlparse
 
 # initiate an app
 app = FastAPI()
 
-storage_client = storage.Client.from_service_account_json('./pemasokitaapp-88d376251f72.json')
-bucket = storage_client.bucket('model-bucket-pmskt')
-blob = bucket.blob('best_model_coba3.h5')
+url = 'https://console.cloud.google.com/storage/browser/model-bucket-pmskt'
+file_path = 'best_model_coba3.h5'
+bucket = 'model-bucket-pmskt'
 
-destination_filename = 'best_model_coba3.h5'
+def decode_gcs_url(url):
+    p = urlparse(url)
+    path = p.path[1:].split('/', 1)
+    bucket, file_path = path[0], path[1] 
+    return bucket, file_path
 
-if not os.path.exists(destination_filename):
-    blob.download_to_filename(destination_filename)
-    print('File downloaded.')
-else:
-    print('File already exists.')
+def download_blob(url):
+    if url:
+        storage_client = storage.Client()
+        bucket, file_path = decode_gcs_url(url)
+        bucket = storage_client.bucket(bucket)
+        blob = bucket.blob(file_path)
+        blob.download_to_filename(os.path.basename(file_path))
+
 
 new_model = tf.keras.models.load_model('./best_model_coba3.h5')
 # create a greeting message for an endpoint '/'
